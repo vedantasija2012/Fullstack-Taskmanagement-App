@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hoverEffect{
+    transition: all 0.5s ease-in-out;
+}
+.hoverEffect:hover{
+    transform: scale(1.05);
+}
+@media screen and (max-width:600px) {
+    .home{
+        width: 90%;
+    }
+    .login{
+        height: 60vh;
+        width: 90%;
+    }
+    .signup{
+        height: 70vh;
+        width: 90%;
+    }
+    .profile{
+        width: 90%;
+    }
+    .info{
+        width: 90%;
+    }
+    .info input {
+        width: 90%;
+    }
+    .tasks{
+        width: 90%;
+    }
+    .task{
+        width: 100%;
+    }
+    .doneBtn{
+        margin: 1.5rem 0.3rem;
+    }
+}
