@@ -27,7 +27,7 @@ const Signup = () => {
       })
       navigate('/tasks')
     } catch (error) {
-      toast.error(`User Couldn't Register! Try Login.`, {
+      toast.error(`${error.response.data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,

@@ -30,7 +30,7 @@ const Login = () => {
       })
     } catch (error) {
       setIsAuthenticated(false)
-      toast.error('User Does Not Exist!', {
+      toast.error(`${error.response.data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,

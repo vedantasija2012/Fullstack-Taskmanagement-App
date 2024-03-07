@@ -10,6 +10,7 @@ const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   let isTask = tasks.length;
   const { isAuthenticated } = useContext(Context)
+  const [isCompleted, setIsCompleted] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -19,7 +20,7 @@ const Tasks = () => {
         return setTasks(response.data.tasks)
       }
     } catch (error) {
-      return toast.error("Unauthorised Access!", {
+      return toast.error(`${error.response.data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -36,7 +37,7 @@ const Tasks = () => {
       if (!isAuthenticated) {
         return toast.warn('Login to View Tasks!', {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 200,
           hideProgressBar: true,
           pauseOnHover: false,
           draggable: false,
@@ -74,15 +75,14 @@ const Tasks = () => {
 
     setTittle("")
     setDescription("")
+    setIsCompleted(prev => !prev)
   }
 
   const updateHandler = async (id) => {
     try {
-      const { data } = await axios.put(`${server}/task/${id}`, { isCompleted: true }, { withCredentials: true })
+      const { data } = await axios.put(`${server}/task/${id}`, { isCompleted }, { withCredentials: true })
 
-      // setTasks((prevTasks) => prevTasks.filter(task => task._id !== id));
-
-      toast.success(data.message, {
+      toast.success(`${data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -91,8 +91,9 @@ const Tasks = () => {
         progress: undefined,
         theme: "dark",
       })
+      setIsCompleted(prev => !prev)
     } catch (error) {
-      toast.error('Could Not Update Task!', {
+      toast.error(`${error.response.data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -121,7 +122,7 @@ const Tasks = () => {
       })
 
     } catch (error) {
-      toast.error('Could Not Delete Task!', {
+      toast.error(`${error.response.data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -132,6 +133,7 @@ const Tasks = () => {
       })
     }
   }
+
   return (
     <>
       <div className='tasks shadow-2xl p-4 my-4 w-1/3 h-4/5 block m-auto'>
@@ -153,7 +155,7 @@ const Tasks = () => {
           )
         }
       </div>
-      
+
       <div className='tasks shadow-2xl px-4 py-2 my-4 w-2/3 h-4/5 block m-auto'>
         {
           !isTask ? <h2 className='text-xl font-bold text-center'>No tasks to show!</h2> : <div>
@@ -162,11 +164,12 @@ const Tasks = () => {
               tasks.map((task, index) => {
                 return (<div key={index} id='task' className='task flex justify-between flex-col xs sm:flex-row shadow-xl h-1/3 border-2 p-4 my-4 rounded-md'>
                   <div>
-                    <h2 className='text-black text-lg my-1'>Title: {task.tittle}</h2>
-                    <p className='text-black text-md my-1'>Description: {task.description}</p>
+                    <h3 className='font-semibold text-lg'>Created On: {new Date(task.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</h3>
+                    <h2 className='text-black text-lg my-1'><strong>Title</strong>: {task.tittle}</h2>
+                    <p className='text-black text-lg my-1'><strong>Description</strong>: {task.description}</p>
                   </div>
                   <div>
-                    <input onClick={() => updateHandler(task._id)} type="checkbox" className='px-6 py-4 mx-4 border-2 border-green-400' />
+                    <input onChange={() => updateHandler(task._id)} checked={task.isCompleted} type="checkbox" className='px-6 py-4 mx-4 border-2 border-green-400' />
                     <button disabled={!isAuthenticated} onClick={() => deleteHandler(task._id)} className="doneBtn w-[20vw] md:w-[8vw] p-1 my-1 rounded-lg font-bold hoverEffect hover:bg-green-500 hover:text-white border-2 border-green-400 text-green-400">Delete</button>
                   </div>
                 </div>)

@@ -105,16 +105,10 @@ export const updateTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
 
-        const { tittle, description, isCompleted } = req.body;
+        const { isCompleted } = req.body;
 
-        if (tittle) {
-            task.tittle = tittle
-        }
-        if (description) {
-            task.description = description
-        }
         if (isCompleted) {
-            task.isCompleted = isCompleted
+            task.isCompleted = !task.isCompleted
         }
 
         await task.save()
@@ -122,6 +116,30 @@ export const updateTask = async (req, res) => {
         res.status(201).json({
             success: true,
             message: "Task Updated Successfully!"
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+export const getTasksOfLoginUser = async (req, res) => {
+    try {
+        const userID = req.user._id;
+        const tasks = await Task.find({ owner: userID });
+
+        if (!tasks) {
+            return res.status(404).json({
+                success: false,
+                message: "No Tasks Found!"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            tasks
         })
     } catch (error) {
         res.status(500).json({

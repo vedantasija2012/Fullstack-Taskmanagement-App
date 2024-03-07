@@ -10,6 +10,7 @@ import About from './components/About'
 import { Context } from './index.js'
 import axios from 'axios'
 import Footer from './components/Footer.jsx'
+import NotFound from './components/NotFound.jsx'
 
 export const server = `http://localhost:5500/api/v1`
 
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/tasks' element={<Tasks />} />
+          <Route path='/*' element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>
