@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AiOutlineUser, AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineUser } from 'react-icons/ai'
 import { Context } from '../index.js'
 
 const Header = () => {
