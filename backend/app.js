@@ -7,16 +7,15 @@ import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
-const corsOptions = {
-  origin: process.env.NODE_ENV === 'production'
-    ? process.env.ALLOWED_ORIGINS
-    : 'http://localhost:3000',
-  credentials: true,
-};
 
 const app = express()
 
-app.use(cors(corsOptions))
+app.use(cors({
+  origin: ["https://frontend-taskmanagement-app.onrender.com"], // your deployed frontend
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
