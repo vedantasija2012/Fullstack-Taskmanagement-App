@@ -12,32 +12,32 @@ import axios from 'axios'
 import Footer from './components/Footer.jsx'
 import NotFound from './components/NotFound.jsx'
 
-export const server = `http://localhost:5500/api/v1`
+export const server = 'https://taskmanagement-app-backend.onrender.com/api/v1';
 
 const App = () => {
-  const {setIsAuthenticated} = useContext(Context);
+  const { setIsAuthenticated } = useContext(Context);
 
-  useEffect(()=>{
-    axios.get(`${server}/profile`, {withCredentials:true}).then(()=>{
+  useEffect(() => {
+    axios.get(`${server}/profile`, { withCredentials: true }).then(() => {
       setIsAuthenticated(true)
-    }).catch(()=>{
+    }).catch(() => {
       setIsAuthenticated(false)
     })
   })
   return (
-      <Router>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/tasks' element={<Tasks />} />
-          <Route path='/*' element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </Router>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/tasks' element={<Tasks />} />
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </Router>
   )
 }
 
