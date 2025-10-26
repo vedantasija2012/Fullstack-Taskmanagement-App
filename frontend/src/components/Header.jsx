@@ -23,16 +23,16 @@ const Header = () => {
 
   return (
     <nav className={`${isSticky ? 'bg-gray-800 fixed top-0 left-0 text-white' : 'bg-white'
-      } text-black shadow-2xl p-4 h-20 w-full font-bold flex justify-between items-center`}>
-      <div className='px-4 text-lg md:px-8 hover:underline'>
+      } text-black shadow-2xl p-2 sm:p-4 h-16 sm:h-20 w-full font-bold flex justify-between items-center`}>
+      <div className='px-2 sm:px-4 text-base sm:text-lg md:px-8 hover:underline'>
         <Link to={'/'}>TaskBuddy</Link>
       </div>
       <ul className='flex items-center p-2'>
-        <li className='px-4 md:px-8 hover:underline'><Link to={'/about'}>About</Link></li>
-        <li className='px-4 md:px-8 hover:underline'><Link to={'/tasks'}>Tasks</Link></li>
-        <li className='px-4 md:px-8 hover:underline'>
+        <li className='px-2 sm:px-4 md:px-8 text-sm sm:text-base hover:underline'><Link to={'/about'}>About</Link></li>
+        <li className='px-2 sm:px-4 md:px-8 text-sm sm:text-base hover:underline'><Link to={'/tasks'}>Tasks</Link></li>
+        <li className='px-2 sm:px-4 md:px-8 text-sm sm:text-base hover:underline'>
           {
-            isAuthenticated ? <Link to={'/profile'}><AiOutlineUser className={`${isSticky ? 'text-3xl block border-2 border-white cursor-pointer float-right mx-2 font-bold rounded-3xl' : 'text-3xl block border-2 border-black cursor-pointer float-right mx-2 font-bold rounded-3xl'
+            isAuthenticated ? <Link to={'/profile'}><AiOutlineUser className={`${isSticky ? 'text-2xl sm:text-3xl block border-2 border-white cursor-pointer mx-1 sm:mx-2 font-bold rounded-3xl' : 'text-2xl sm:text-3xl block border-2 border-black cursor-pointer mx-1 sm:mx-2 font-bold rounded-3xl'
               }`} /></Link> : <Link to={'/login'}>Login</Link>
           }
         </li>
