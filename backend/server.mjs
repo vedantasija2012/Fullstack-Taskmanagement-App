@@ -3,6 +3,6 @@ import connectDB from "./config/connectDB.js";
 
 connectDB();
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT, () => {
     console.log(`App listening at: http://localhost:${process.env.PORT}`)
 })
